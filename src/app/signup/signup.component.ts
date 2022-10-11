@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ServiceService } from '../services/service.service';
 
 @Component({
   selector: 'app-signup',
@@ -6,10 +8,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-
-  constructor() { }
+  form:any
+  constructor(private readonly fb:FormBuilder,private readonly service:ServiceService) { }
 
   ngOnInit(): void {
-  }
 
+    this.form = this.fb.group({
+      username:[null],
+      fullname:[null],
+      password:[null]
+    })
+
+  }
+    signup():void{
+      
+      this.service.saveDetails(this.form.value)
+      
+    }
 }
